@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="saveViewModel"
+            type="com.omarahmed.getnews.ui.saved.SavedViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#EDECEC"
+        tools:context=".ui.saved.SavedFragment">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/tb_saved"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/red"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/courgette"
+                android:text="@string/bookmarks"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+        </com.google.android.material.appbar.MaterialToolbar>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_savedNews"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:paddingEnd="4dp"
+            android:paddingStart="0dp"
+            setVisibility="@{saveViewModel.readSavedNews}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tb_saved"
+            app:layout_constraintVertical_bias="0.0"
+            tools:listitem="@layout/saved_news_row" />
+
+        <ImageView
+            android:id="@+id/iv_noSaved"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_no_news"
+            setVisibility="@{saveViewModel.readSavedNews}"
+            app:layout_constraintBottom_toBottomOf="@+id/rv_savedNews"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.41000003" />
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_bold"
+            android:text="@string/save_your_news"
+            android:textColor="@color/gray"
+            setVisibility="@{saveViewModel.readSavedNews}"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="@id/iv_noSaved"
+            app:layout_constraintStart_toStartOf="@id/iv_noSaved"
+            app:layout_constraintTop_toBottomOf="@id/iv_noSaved"
+            tools:visibility="visible" />
+        <TextView
+            android:id="@+id/tv_error"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="13sp"
+            setVisibility="@{saveViewModel.readSavedNews}"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="@+id/tv_title"
+            app:layout_constraintStart_toStartOf="@+id/tv_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_title"
+            android:text="@string/bookmarks_message"
+            tools:visibility="visible" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

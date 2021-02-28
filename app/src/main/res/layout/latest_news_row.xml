@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="article"
+            type="com.omarahmed.getnews.models.Article" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/materialCardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="5dp"
+        app:cardCornerRadius="24dp"
+        >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="16dp">
+
+            <ImageView
+                android:id="@+id/iv_latestNews"
+                setImage="@{article.urlToImage}"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <TextView
+                android:id="@+id/tv_latestNews_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:ellipsize="end"
+                android:justificationMode="inter_word"
+                android:lines="3"
+                android:text="@{article.title}"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_latestNews"
+                tools:ignore="UnusedAttribute"
+                tools:text="TextView" />
+
+            <TextView
+                android:id="@+id/tv_latestNews_time"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:ellipsize="end"
+                android:lines="1"
+                setTimeAgo="@{article.publishedAt}"
+                android:textColor="@color/gray"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toStartOf="@+id/iv_latestNews_share"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_latestNews_title"
+                tools:text="1 hour ago" />
+
+            <ImageView
+                android:id="@+id/iv_latestNews_share"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_latestNews_time"
+                app:layout_constraintEnd_toStartOf="@+id/iv_latestNews_save"
+                app:layout_constraintTop_toTopOf="@+id/tv_latestNews_time"
+                app:srcCompat="@drawable/ic_share"
+                app:tint="@color/red" />
+
+            <ImageView
+                android:id="@+id/iv_latestNews_save"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_latestNews_share"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/iv_latestNews_share"
+                app:srcCompat="@drawable/ic_bookmark_border"
+                app:tint="@color/red" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>
