@@ -60,7 +60,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.41000003" />
+            />
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
@@ -68,6 +68,7 @@
             android:fontFamily="@font/roboto_bold"
             android:text="@string/save_your_news"
             android:textColor="@color/gray"
+            android:layout_marginTop="8dp"
             setVisibility="@{saveViewModel.readSavedNews}"
             android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="@id/iv_noSaved"

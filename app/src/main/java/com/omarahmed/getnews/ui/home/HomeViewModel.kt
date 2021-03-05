@@ -91,10 +91,9 @@ class HomeViewModel @ViewModelInject constructor(
             else -> NetworkResult.Error("Something went wrong")
         }
     }
-
     private fun hasInternetConnection(): Boolean {
         val connectivityManager = getApplication<Application>()
-            .getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+                .getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetwork = connectivityManager.activeNetwork ?: return false
         val capabilities = connectivityManager.getNetworkCapabilities(activeNetwork) ?: return false
         return when {

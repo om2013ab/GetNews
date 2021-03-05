@@ -10,12 +10,11 @@
             type="com.omarahmed.getnews.ui.home.HomeViewModel" />
     </data>
 
-    <androidx.constraintlayout.motion.widget.MotionLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#EDECEC"
-        app:layoutDescription="@xml/fragment_home_xml_constraintlayout_scene">
+        android:background="@color/background">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/tb_home"
@@ -37,65 +36,20 @@
                 android:textStyle="bold" />
         </com.google.android.material.appbar.MaterialToolbar>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_viewPager"
-            android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:background="#EDECEC"
-            readApiResponse="@{homeViewModel.latestNewsResponse}"
-            readDatabase="@{homeViewModel.readLatestNews}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tb_home"
-            tools:visibility="visible">
-
-            <TextView
-                android:id="@+id/tv_forYou"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/roboto_bold"
-                android:text="@string/for_you"
-                android:textColor="@color/black"
-                android:textSize="13sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/vp_forYou"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="24dp"
-                android:clipChildren="false"
-                android:clipToPadding="false"
-                android:paddingStart="80dp"
-                android:paddingEnd="80dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_forYou" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/refreshLayout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            readApiResponse="@{homeViewModel.latestNewsResponse}"
-            readDatabase="@{homeViewModel.readLatestNews}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cl_viewPager">
+            app:layout_constraintTop_toBottomOf="@+id/tb_home">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_latestNews"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="8dp"
-                android:paddingStart="5dp"
-                android:paddingEnd="5dp"
                 tools:itemCount="3"
                 tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 tools:listitem="@layout/latest_news_row"
@@ -144,5 +98,5 @@
             app:layout_constraintTop_toBottomOf="@id/textView"
             tools:text="@string/connection_issue_message"
             tools:visibility="visible" />
-    </androidx.constraintlayout.motion.widget.MotionLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

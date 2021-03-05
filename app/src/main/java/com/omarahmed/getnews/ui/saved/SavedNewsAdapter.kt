@@ -3,6 +3,7 @@ package com.omarahmed.getnews.ui.saved
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.omarahmed.getnews.data.room.entities.SavedNewsEntity
@@ -45,6 +46,10 @@ class SavedNewsAdapter(
     override fun onBindViewHolder(holder: SavedNewsViewHolder, position: Int) {
         val currentNews = getItem(position)
         holder.bind(currentNews)
+        holder.itemView.setOnClickListener {
+            val action = SavedFragmentDirections.actionSavedFragmentToDetailsFragment(currentNews.article)
+            it.findNavController().navigate(action)
+        }
     }
 
     interface OnClickListener{

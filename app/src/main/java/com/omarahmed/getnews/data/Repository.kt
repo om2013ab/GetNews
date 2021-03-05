@@ -5,7 +5,6 @@ import com.omarahmed.getnews.data.room.NewsDao
 import com.omarahmed.getnews.data.room.entities.LatestNewsEntity
 import com.omarahmed.getnews.data.room.entities.SavedNewsEntity
 import dagger.hilt.android.scopes.ActivityRetainedScoped
-import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 @ActivityRetainedScoped
@@ -19,6 +18,7 @@ class Repository @Inject constructor(
             newsApi.getForYouNews(apiKey)
 
     suspend fun getLatestNewsFromApi(apiKey: String) = newsApi.getLatestNews(apiKey)
+    suspend fun getExploreNews(apiKey: String, category: String) = newsApi.getExploreNews(apiKey, category)
 
 
     /** LOCAL*/
@@ -37,6 +37,7 @@ class Repository @Inject constructor(
     fun readSavedNews() = newsDao.readSavedNews()
     suspend fun insertSavedNews(savedNewsEntity: SavedNewsEntity) =
             newsDao.insertSavedNews(savedNewsEntity)
+
     suspend fun deleteSavedNews(savedNewsEntity: SavedNewsEntity) =
             newsDao.deleteSavedNews(savedNewsEntity)
 }

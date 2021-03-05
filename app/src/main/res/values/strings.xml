@@ -12,5 +12,5 @@
     <string name="connection_error">CONNECTION ERROR</string>
     <string name="bookmarks">Bookmarks</string>
     <string name="save_your_news">SAVE YOUR NEWS</string>
-    <string name="bookmarks_message">Save your favorite news and articles to read\nthem later even if you are offline !!</string>
+    <string name="bookmarks_message">Save your favorite news and articles to read\nthem later.</string>
 </resources>

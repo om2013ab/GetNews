@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="article"
+            type="com.omarahmed.getnews.models.Article" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <ImageView
+                android:id="@+id/iv_exploreItems"
+                android:layout_width="150dp"
+                android:layout_height="0dp"
+                setImage="@{article.urlToImage}"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <TextView
+                android:id="@+id/tv_exploreTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="8dp"
+                android:ellipsize="end"
+                android:text="@{article.title}"
+                android:fontFamily="@font/roboto_bold"
+                android:lines="2"
+                android:textColor="@color/red"
+                app:layout_constraintEnd_toStartOf="@+id/view"
+                app:layout_constraintStart_toEndOf="@+id/iv_exploreItems"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="TextView" />
+
+            <TextView
+                android:id="@+id/tv_exploreDesc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:ellipsize="end"
+                android:lines="3"
+                android:text="@{article.description}"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="@+id/tv_exploreTitle"
+                app:layout_constraintStart_toStartOf="@+id/tv_exploreTitle"
+                app:layout_constraintTop_toBottomOf="@+id/tv_exploreTitle"
+                tools:text="TextView" />
+
+            <TextView
+                android:id="@+id/tv_exploreTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                setTimeAgo="@{article.publishedAt}"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tv_exploreDesc"
+                app:layout_constraintTop_toBottomOf="@+id/tv_exploreDesc"
+                tools:text="TextView" />
+
+            <ImageView
+                android:id="@+id/iv_exploreSave"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_exploreShare"
+                app:layout_constraintEnd_toEndOf="@+id/tv_exploreDesc"
+                app:layout_constraintTop_toTopOf="@+id/iv_exploreShare"
+                app:srcCompat="@drawable/ic_bookmark_border" />
+
+            <ImageView
+                android:id="@+id/iv_exploreShare"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginEnd="16dp"
+                app:tint="@color/red"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_exploreTime"
+                app:layout_constraintEnd_toStartOf="@+id/iv_exploreSave"
+                app:layout_constraintTop_toTopOf="@+id/tv_exploreTime"
+                app:srcCompat="@drawable/ic_share" />
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="4dp"
+                android:layout_height="0dp"
+                android:background="@color/green"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

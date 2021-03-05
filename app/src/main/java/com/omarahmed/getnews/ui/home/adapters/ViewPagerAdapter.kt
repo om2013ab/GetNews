@@ -5,12 +5,13 @@ import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.omarahmed.getnews.databinding.ViewPagerLayoutBinding
 import com.omarahmed.getnews.models.Article
 import com.omarahmed.getnews.ui.home.HomeFragmentDirections
 
-class ViewPagerAdapter(): RecyclerView.Adapter<ViewPagerAdapter.PagerViewHolder>() {
+class ViewPagerAdapter(): ListAdapter<Article,ViewPagerAdapter.PagerViewHolder>(DiffCallback) {
     object DiffCallback: DiffUtil.ItemCallback<Article>(){
         override fun areItemsTheSame(oldItem: Article, newItem: Article): Boolean {
             return oldItem.url == oldItem.url
@@ -20,8 +21,6 @@ class ViewPagerAdapter(): RecyclerView.Adapter<ViewPagerAdapter.PagerViewHolder>
             return oldItem == newItem
         }
     }
-
-    val forYouList = AsyncListDiffer(this, DiffCallback)
 
     inner class PagerViewHolder(private val binding: ViewPagerLayoutBinding):RecyclerView.ViewHolder(binding.root){
         fun bind(article: Article){
@@ -36,13 +35,11 @@ class ViewPagerAdapter(): RecyclerView.Adapter<ViewPagerAdapter.PagerViewHolder>
     }
 
     override fun onBindViewHolder(holder: PagerViewHolder, position: Int) {
-        val currentNews = forYouList.currentList[position]
+        val currentNews = getItem(position)
         holder.bind(currentNews)
         val action = HomeFragmentDirections.actionHomeFragmentToDetailsFragment(currentNews)
         holder.itemView.setOnClickListener {
             it.findNavController().navigate(action)
         }
     }
-
-    override fun getItemCount() = forYouList.currentList.size
 }
