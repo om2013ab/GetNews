@@ -1,5 +1,6 @@
 package com.omarahmed.getnews.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -22,8 +23,6 @@ import com.omarahmed.getnews.data.room.entities.SavedNewsEntity
 import com.omarahmed.getnews.databinding.FragmentHomeBinding
 import com.omarahmed.getnews.databinding.LatestNewsHeaderBinding
 import com.omarahmed.getnews.models.Article
-import com.omarahmed.getnews.ui.home.adapters.HomeAdapter
-import com.omarahmed.getnews.ui.home.adapters.ViewPagerAdapter
 import com.omarahmed.getnews.ui.saved.SavedViewModel
 import com.omarahmed.getnews.util.Constants.API_KEY
 import com.omarahmed.getnews.util.NetworkResult
@@ -168,6 +167,15 @@ class HomeFragment : Fragment(), HomeAdapter.HomeAdapterInterface {
             readLatestNewsFromApi()
             readForYouNewsFromApi()
         }
+    }
+
+    override fun shareNewsLink(article: Article) {
+        val shareIntent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT,article.url)
+            type = "text/plain"
+        }
+        startActivity(shareIntent)
     }
 
     override fun onSavedClick(article: Article, imageView: ImageView) {

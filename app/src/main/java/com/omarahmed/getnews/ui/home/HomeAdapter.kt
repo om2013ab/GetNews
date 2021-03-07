@@ -1,4 +1,4 @@
-package com.omarahmed.getnews.ui.home.adapters
+package com.omarahmed.getnews.ui.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,6 +6,7 @@ import android.widget.ImageView
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.omarahmed.getnews.R
 import com.omarahmed.getnews.databinding.LatestNewsHeaderBinding
@@ -13,7 +14,6 @@ import com.omarahmed.getnews.databinding.LatestNewsRowBinding
 import com.omarahmed.getnews.models.Article
 import com.omarahmed.getnews.shared.DataItems
 import com.omarahmed.getnews.shared.DiffCallback
-import com.omarahmed.getnews.ui.home.HomeFragmentDirections
 import com.omarahmed.getnews.ui.saved.SavedViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -27,7 +27,7 @@ private const val ITEM_NEWS_TYPE = 1
 class HomeAdapter(
         private val listener: HomeAdapterInterface,
         val fragment: FragmentActivity
-) : androidx.recyclerview.widget.ListAdapter<DataItems, RecyclerView.ViewHolder>(DiffCallback()) {
+) : ListAdapter<DataItems, RecyclerView.ViewHolder>(DiffCallback()) {
     private var newsSaved = false
     private var newsSavedId = 0
     private val savedNewsViewMode = ViewModelProvider(fragment).get(SavedViewModel::class.java)
@@ -57,13 +57,19 @@ class HomeAdapter(
             binding.ivLatestNewsSave.setOnClickListener {
                 if (adapterPosition != RecyclerView.NO_POSITION){
                     val currentNews = getItem(adapterPosition) as DataItems.NewsItem
-                    if (!newsSaved){
+                    newsSaved = if (!newsSaved){
                         listener.onSavedClick(currentNews.article, binding.ivLatestNewsSave)
-                        newsSaved = true
+                        true
                     } else {
                         listener.onUnSavedClick(0,currentNews.article, binding.ivLatestNewsSave)
-                        newsSaved = false
+                        false
                     }
+                }
+            }
+            binding.ivLatestNewsShare.setOnClickListener {
+                if (adapterPosition != RecyclerView.NO_POSITION){
+                    val currentNews = getItem(adapterPosition) as DataItems.NewsItem
+                    listener.shareNewsLink(currentNews.article)
                 }
             }
 
@@ -109,6 +115,7 @@ class HomeAdapter(
                         }
                     }
                 }
+
             }
         }
     }
@@ -124,6 +131,7 @@ class HomeAdapter(
         fun onSavedClick(article: Article, imageView: ImageView)
         fun onUnSavedClick(newsId: Int, article: Article, imageView: ImageView)
         fun setupHeader(headerBinding: LatestNewsHeaderBinding)
+        fun shareNewsLink(article: Article)
     }
 }
 

@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.omarahmed.getnews.data.room.entities.SavedNewsEntity
 import com.omarahmed.getnews.databinding.SavedNewsRowBinding
+import com.omarahmed.getnews.models.Article
 import com.omarahmed.getnews.ui.saved.SavedNewsAdapter.SavedNewsViewHolder
 
 class SavedNewsAdapter(
@@ -34,6 +35,12 @@ class SavedNewsAdapter(
                     listener.onUnsavedClick(getItem(adapterPosition))
                 }
             }
+            binding.ivSavedNewsShare.setOnClickListener {
+                if (adapterPosition != RecyclerView.NO_POSITION){
+                    val currentNews = getItem(adapterPosition)
+                    listener.shareNewsLink(currentNews.article)
+                }
+            }
         }
     }
 
@@ -54,5 +61,6 @@ class SavedNewsAdapter(
 
     interface OnClickListener{
         fun onUnsavedClick(savedNewsEntity: SavedNewsEntity)
+        fun shareNewsLink(article: Article)
     }
 }

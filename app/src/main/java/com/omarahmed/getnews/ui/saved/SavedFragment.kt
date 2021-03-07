@@ -1,11 +1,13 @@
 package com.omarahmed.getnews.ui.saved
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,6 +15,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.omarahmed.getnews.R
 import com.omarahmed.getnews.data.room.entities.SavedNewsEntity
 import com.omarahmed.getnews.databinding.FragmentSavedBinding
+import com.omarahmed.getnews.models.Article
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -51,6 +54,15 @@ class SavedFragment : Fragment(),SavedNewsAdapter.OnClickListener {
                 savedViewModel.insertSavedNews(savedNewsEntity)
             }
         }
+    }
+
+    override fun shareNewsLink(article: Article) {
+        val shareIntent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT,article.url)
+            type = "text/plain"
+        }
+        startActivity(shareIntent)
     }
 
     override fun onDestroyView() {

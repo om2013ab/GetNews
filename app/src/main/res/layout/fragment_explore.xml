@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/background"
     tools:context=".ui.explore.ExploreFragment">
+
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/tb_explore"
         android:layout_width="match_parent"
@@ -35,6 +36,42 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tb_explore" />
+
+    <ProgressBar
+        android:id="@+id/pb_explore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tb_explore"
+        app:layout_constraintVertical_bias="0.593" />
+
+    <ImageView
+        android:id="@+id/iv_exploreError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic__connection_error"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tb_explore"
+        app:layout_constraintVertical_bias="0.39" />
+
+    <TextView
+        android:id="@+id/tv_exploreError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/roboto_bold"
+        android:textSize="18sp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/iv_exploreError"
+        app:layout_constraintStart_toStartOf="@+id/iv_exploreError"
+        app:layout_constraintTop_toBottomOf="@+id/iv_exploreError"
+        tools:text="TextView" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

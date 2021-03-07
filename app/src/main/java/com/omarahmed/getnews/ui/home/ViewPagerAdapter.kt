@@ -1,17 +1,15 @@
-package com.omarahmed.getnews.ui.home.adapters
+package com.omarahmed.getnews.ui.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
-import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.omarahmed.getnews.databinding.ViewPagerLayoutBinding
 import com.omarahmed.getnews.models.Article
-import com.omarahmed.getnews.ui.home.HomeFragmentDirections
 
-class ViewPagerAdapter(): ListAdapter<Article,ViewPagerAdapter.PagerViewHolder>(DiffCallback) {
+class ViewPagerAdapter(): ListAdapter<Article, ViewPagerAdapter.PagerViewHolder>(DiffCallback) {
     object DiffCallback: DiffUtil.ItemCallback<Article>(){
         override fun areItemsTheSame(oldItem: Article, newItem: Article): Boolean {
             return oldItem.url == oldItem.url

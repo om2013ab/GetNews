@@ -1,5 +1,6 @@
 package com.omarahmed.getnews
 
+import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -59,7 +60,12 @@ class DetailsFragment : Fragment() {
             Toast.makeText(requireContext(), "save", Toast.LENGTH_SHORT).show()
         }
         binding.fabShare.setOnClickListener {
-            Toast.makeText(requireContext(), "share", Toast.LENGTH_SHORT).show()
+            val shareIntent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT,args.article.url)
+                type = "text/plain"
+            }
+            startActivity(shareIntent)
         }
 
         return binding.root

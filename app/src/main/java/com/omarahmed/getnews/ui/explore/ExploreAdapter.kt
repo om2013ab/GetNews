@@ -1,9 +1,12 @@
 package com.omarahmed.getnews.ui.explore
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat.startActivity
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.omarahmed.getnews.databinding.ExploreHeaderLayoutBinding
 import com.omarahmed.getnews.databinding.ExploreItemsBinding
@@ -40,6 +43,16 @@ class ExploreAdapter(val listener: ExploreAdapterInterface) : ListAdapter<DataIt
         fun bindExplore(dataItems: DataItems.NewsItem) {
             binding.article = dataItems.article
             binding.executePendingBindings()
+        }
+
+        init {
+            binding.ivExploreShare.setOnClickListener {
+                if (adapterPosition != RecyclerView.NO_POSITION){
+                    val currentNews = getItem(adapterPosition) as DataItems.NewsItem
+                    listener.shareNewsLink(currentNews.article)
+                }
+
+            }
         }
     }
 
@@ -86,6 +99,7 @@ class ExploreAdapter(val listener: ExploreAdapterInterface) : ListAdapter<DataIt
 
     interface ExploreAdapterInterface {
         fun setupHeader(headerBinding: ExploreHeaderLayoutBinding)
+        fun shareNewsLink(article: Article)
     }
 
 }

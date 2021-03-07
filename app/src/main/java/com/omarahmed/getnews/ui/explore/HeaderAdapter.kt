@@ -1,20 +1,14 @@
 package com.omarahmed.getnews.ui.explore
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.card.MaterialCardView
 import com.omarahmed.getnews.R
 import com.omarahmed.getnews.databinding.ExploreHeaderItemsBinding
-import com.omarahmed.getnews.databinding.ExploreHeaderLayoutBinding
-import java.util.*
+import com.omarahmed.getnews.models.ExploreHeaderModel
 import kotlin.collections.ArrayList
 
 class HeaderAdapter(val list: ArrayList<ExploreHeaderModel>,

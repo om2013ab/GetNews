@@ -64,10 +64,6 @@ class HomeFragmentBindingAdapter {
                     view.isVisible = newsResponse is NetworkResult.Error && database.isNullOrEmpty()
                     view.text = newsResponse?.message.toString()
                 }
-                else -> view.isInvisible = newsResponse is NetworkResult.Error && database.isNullOrEmpty()
-//                is ConstraintLayout -> {
-//                    headerBinding.isVisible = newsResponse is NetworkResult.Success || database?.isNotEmpty() == true
-//                }
             }
         }
     }

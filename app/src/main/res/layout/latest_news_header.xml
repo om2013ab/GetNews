@@ -1,57 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
-    <data>
+    <TextView
+        android:id="@+id/tv_forYou"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/red"
+        android:fontFamily="@font/roboto_bold"
+        android:paddingStart="8dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="0dp"
+        android:paddingBottom="8dp"
+        android:text="@string/for_you"
+        android:textColor="@color/white"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    </data>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/vp_forYou"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="200dp"
+        android:background="@color/red"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:paddingStart="80dp"
+        android:paddingEnd="80dp"
+        android:paddingBottom="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_forYou" />
 
-        <TextView
-            android:id="@+id/tv_forYou"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="@color/red"
-            android:fontFamily="@font/roboto_bold"
-            android:text="@string/for_you"
-            android:paddingTop="10dp"
-            android:textColor="@color/white"
-            android:paddingStart="8dp"
-            android:paddingEnd="0dp"
-            android:paddingBottom="8dp"
-            android:textSize="13sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/vp_forYou"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:clipChildren="false"
-            android:clipToPadding="false"
-            android:background="@color/red"
-            android:paddingBottom="20dp"
-            android:paddingStart="80dp"
-            android:paddingEnd="80dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_forYou" />
-
-        <TextView
-            android:id="@+id/tv_latestNews"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="10dp"
-            android:fontFamily="@font/roboto_bold"
-            android:text="@string/latest_news"
-            android:textColor="@color/black"
-            android:textSize="13sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/vp_forYou" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
+    <TextView
+        android:id="@+id/tv_latestNews"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/roboto_bold"
+        android:text="@string/latest_news"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vp_forYou" />
+</androidx.constraintlayout.widget.ConstraintLayout>

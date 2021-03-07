@@ -29,8 +29,10 @@ class ExploreViewModel @ViewModelInject constructor(
                 _exploreNewsResponse.value = handleExploreNewsResponse(response)
 
             } catch (e: Exception) {
-                _exploreNewsResponse.value = NetworkResult.Error("No Internet connection")
+                _exploreNewsResponse.value = NetworkResult.Error("Something went wrong")
             }
+        } else {
+            _exploreNewsResponse.value = NetworkResult.Error("No Internet connection")
         }
     }
 

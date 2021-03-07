@@ -1,4 +1,4 @@
-package com.omarahmed.getnews.ui.explore
+package com.omarahmed.getnews.models
 
 data class ExploreHeaderModel(
         val image: Int,
