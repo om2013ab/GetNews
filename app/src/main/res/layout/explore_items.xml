@@ -23,7 +23,7 @@
             >
 
             <ImageView
-                android:id="@+id/iv_exploreItems"
+                android:id="@+id/iv_exploreItem"
                 android:layout_width="150dp"
                 android:layout_height="0dp"
                 setImage="@{article.urlToImage}"
@@ -46,7 +46,7 @@
                 android:lines="2"
                 android:textColor="@color/red"
                 app:layout_constraintEnd_toStartOf="@+id/view"
-                app:layout_constraintStart_toEndOf="@+id/iv_exploreItems"
+                app:layout_constraintStart_toEndOf="@+id/iv_exploreItem"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="TextView" />
 

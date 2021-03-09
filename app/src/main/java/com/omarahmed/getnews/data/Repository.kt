@@ -19,6 +19,7 @@ class Repository @Inject constructor(
 
     suspend fun getLatestNewsFromApi(apiKey: String) = newsApi.getLatestNews(apiKey)
     suspend fun getExploreNews(apiKey: String, category: String) = newsApi.getExploreNews(apiKey, category)
+    suspend fun getSearchNews(apiKey: String, query: String) = newsApi.getSearchNews(apiKey,query)
 
 
     /** LOCAL*/

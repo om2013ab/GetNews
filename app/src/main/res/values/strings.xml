@@ -13,4 +13,8 @@
     <string name="bookmarks">Bookmarks</string>
     <string name="save_your_news">SAVE YOUR NEWS</string>
     <string name="bookmarks_message">Save your favorite news and articles to read\nthem later.</string>
+    <string name="search">Search</string>
+    <string name="not_found">HUMM.. NOT FOUND</string>
+    <string name="search_desc">We could not find results for your search.\nTry using another keywords.</string>
+    <string name="search_hint">Search for news and articles...</string>
 </resources>

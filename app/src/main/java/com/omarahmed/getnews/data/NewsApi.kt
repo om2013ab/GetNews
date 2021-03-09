@@ -27,4 +27,12 @@ interface NewsApi {
             @Query("category") category: String,
             @Query("language") language: String? = "en"
     ): Response<NewsResponse>
+
+    @GET("/v2/everything")
+    suspend fun getSearchNews(
+            @Query("apiKey") apiKey: String,
+            @Query("q") query: String,
+            @Query("language") language: String? = "en"
+
+            ): Response<NewsResponse>
 }

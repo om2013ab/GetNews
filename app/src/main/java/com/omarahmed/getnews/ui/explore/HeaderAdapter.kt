@@ -26,7 +26,7 @@ class HeaderAdapter(val list: ArrayList<ExploreHeaderModel>,
         val layoutInflater = LayoutInflater.from(parent.context)
         val view = ExploreHeaderItemsBinding.inflate(layoutInflater)
 
-        view.ivExploreItems.setImageResource(currentNews.image)
+        view.ivHeaderExplore.setImageResource(currentNews.image)
         view.tvExploreItems.text = (currentNews.title)
 
         if (selectedPosition == position) {
@@ -34,8 +34,8 @@ class HeaderAdapter(val list: ArrayList<ExploreHeaderModel>,
                     view.tvExploreItems.context,
                     R.color.green
             ))
-            view.ivExploreItems.setColorFilter(ContextCompat.getColor(
-                    view.ivExploreItems.context,
+            view.ivHeaderExplore.setColorFilter(ContextCompat.getColor(
+                    view.ivHeaderExplore.context,
                     R.color.green
             ))
             listener.getCategory(position)
