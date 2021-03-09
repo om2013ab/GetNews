@@ -6,18 +6,19 @@
     android:layout_height="match_parent"
     android:background="@color/background"
     tools:context=".ui.search.SearchFragment">
+
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/tb_search"
         android:layout_width="match_parent"
-        app:navigationIcon="@drawable/ic_arrow_back"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_arrow_back"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_search"
@@ -47,11 +48,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="@string/not_found"
-        android:visibility="invisible"
         android:fontFamily="@font/roboto_bold"
-        android:textSize="16sp"
+        android:text="@string/not_found"
         android:textColor="@color/gray"
+        android:textSize="16sp"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="@+id/iv_search"
         app:layout_constraintStart_toStartOf="@+id/iv_search"
         app:layout_constraintTop_toBottomOf="@+id/iv_search" />
@@ -62,8 +63,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:gravity="center"
-        android:visibility="invisible"
         android:text="@string/search_desc"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="@+id/tv_titleSearch"
         app:layout_constraintStart_toStartOf="@+id/tv_titleSearch"
         app:layout_constraintTop_toBottomOf="@+id/tv_titleSearch" />
@@ -77,6 +78,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tb_search" />
+        app:layout_constraintTop_toBottomOf="@+id/tb_search"
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
