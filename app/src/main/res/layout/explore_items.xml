@@ -15,6 +15,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
+        app:cardBackgroundColor="@color/cardBackground_color"
         >
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -58,7 +59,7 @@
                 android:ellipsize="end"
                 android:lines="3"
                 android:text="@{article.description}"
-                android:textColor="@color/black"
+                android:textColor="@color/textColor"
                 app:layout_constraintEnd_toEndOf="@+id/tv_exploreTitle"
                 app:layout_constraintStart_toStartOf="@+id/tv_exploreTitle"
                 app:layout_constraintTop_toBottomOf="@+id/tv_exploreTitle"
@@ -69,6 +70,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:textColor="@color/timeText_color"
                 setTimeAgo="@{article.publishedAt}"
                 android:layout_marginBottom="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -81,6 +83,7 @@
                 android:layout_width="15dp"
                 android:layout_height="15dp"
                 android:layout_marginEnd="8dp"
+                app:tint="@color/icons_color"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_exploreShare"
                 app:layout_constraintEnd_toEndOf="@+id/tv_exploreDesc"
                 app:layout_constraintTop_toTopOf="@+id/iv_exploreShare"
@@ -91,7 +94,7 @@
                 android:layout_width="15dp"
                 android:layout_height="15dp"
                 android:layout_marginEnd="16dp"
-                app:tint="@color/red"
+                app:tint="@color/icons_color"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_exploreTime"
                 app:layout_constraintEnd_toStartOf="@+id/iv_exploreSave"
                 app:layout_constraintTop_toTopOf="@+id/tv_exploreTime"

@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="16dp"
     >
     <LinearLayout
@@ -23,6 +24,7 @@
             android:layout_height="wrap_content"
             tools:text="Business"
             android:lines="1"
+            android:textColor="@color/gray"
             android:ellipsize="end"
             android:textSize="10sp"
             android:layout_marginTop="8dp"

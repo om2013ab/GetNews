@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="savedNews"
             type="com.omarahmed.getnews.data.room.entities.SavedNewsEntity" />
@@ -20,6 +21,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="4dp"
+            app:cardBackgroundColor="@color/cardBackground_color"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -64,7 +66,7 @@
                     android:ellipsize="end"
                     android:lines="3"
                     android:text="@{savedNews.article.description}"
-                    android:textColor="@color/black"
+                    android:textColor="@color/textColor"
                     app:layout_constraintEnd_toEndOf="@+id/tv_savedNews_title"
                     app:layout_constraintStart_toStartOf="@+id/tv_savedNews_title"
                     app:layout_constraintTop_toBottomOf="@+id/tv_savedNews_title"
@@ -76,6 +78,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="32dp"
+                    android:textColor="@color/timeText_color"
                     app:layout_constraintStart_toStartOf="@+id/tv_savedNews_desc"
                     app:layout_constraintTop_toBottomOf="@+id/tv_savedNews_desc"
                     tools:text="TextView" />
@@ -88,7 +91,7 @@
                     app:layout_constraintEnd_toEndOf="@+id/tv_savedNews_desc"
                     app:layout_constraintTop_toTopOf="@+id/iv_savedNews_share"
                     app:srcCompat="@drawable/ic_bookmark_saved"
-                    app:tint="@color/red" />
+                    app:tint="@color/icons_color" />
 
                 <ImageView
                     android:id="@+id/iv_savedNews_share"
@@ -99,7 +102,7 @@
                     app:layout_constraintEnd_toStartOf="@+id/iv_savedNews_unsaved"
                     app:layout_constraintTop_toTopOf="@+id/tv_savedNews_time"
                     app:srcCompat="@drawable/ic_share"
-                    app:tint="@color/red" />
+                    app:tint="@color/icons_color" />
 
                 <View
                     android:layout_width="match_parent"

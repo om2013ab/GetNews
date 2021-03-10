@@ -7,14 +7,31 @@
     <color name="teal_700">#FF018786</color>
 
 
-    <color name="red">#D61D1D</color>
+    <color name="red">#FF4646</color>
     <color name="yellow">#EFE818</color>
     <color name="green">#4CAC88</color>
-    <color name="brown">#910505</color>
     <color name="orange">#FF5722</color>
     <color name="gray">#736E6E</color>
+    <color name="light_gray">#EDECEC</color>
     <color name="black">#000000</color>
+    <color name="dark">#313C44</color>
+    <color name="darker">#151B20</color>
     <color name="white">#FFFFFF</color>
-    <color name="bottom_nav_color">#F1E8E8</color>
-    <color name="background">#EDECEC</color>
+
+    //light mode
+
+    <color name="bottom_nav_color">@color/white</color>
+    <color name="bnvItemChecked_color">@color/red</color>
+    <color name="bnvItemUnchecked_color">@color/gray</color>
+    <color name="background">@color/light_gray</color>
+    <color name="toolbar_color">@color/red</color>
+    <color name="extendedToolbar_color">@color/red</color>
+    <color name="sourceText_color">@color/red</color>
+    <color name="timeText_color">@color/gray</color>
+    <color name="textColor">@color/black</color>
+    <color name="icons_color">@color/red</color>
+    <color name="cardBackground_color">@color/white</color>
+    <color name="forYouCard_bg_color">@color/white</color>
+
+
 </resources>

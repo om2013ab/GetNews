@@ -17,8 +17,8 @@
         android:layout_marginStart="5dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="5dp"
-        app:cardCornerRadius="24dp"
-        >
+        app:cardBackgroundColor="@color/cardBackground_color"
+        app:cardCornerRadius="24dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -47,7 +47,7 @@
                 android:justificationMode="inter_word"
                 android:lines="3"
                 android:text="@{article.title}"
-                android:textColor="@color/black"
+                android:textColor="@color/textColor"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -57,6 +57,7 @@
 
             <TextView
                 android:id="@+id/tv_latestNews_time"
+                setTimeAgo="@{article.publishedAt}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -64,8 +65,7 @@
                 android:layout_marginEnd="16dp"
                 android:ellipsize="end"
                 android:lines="1"
-                setTimeAgo="@{article.publishedAt}"
-                android:textColor="@color/gray"
+                android:textColor="@color/timeText_color"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toStartOf="@+id/iv_latestNews_share"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -82,7 +82,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/iv_latestNews_save"
                 app:layout_constraintTop_toTopOf="@+id/tv_latestNews_time"
                 app:srcCompat="@drawable/ic_share"
-                app:tint="@color/red" />
+                app:tint="@color/icons_color" />
 
             <ImageView
                 android:id="@+id/iv_latestNews_save"
@@ -93,7 +93,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/iv_latestNews_share"
                 app:srcCompat="@drawable/ic_bookmark_border"
-                app:tint="@color/red" />
+                app:tint="@color/icons_color" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 </layout>
