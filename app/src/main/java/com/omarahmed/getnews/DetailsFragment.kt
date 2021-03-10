@@ -18,6 +18,7 @@ import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.navArgs
 import com.omarahmed.getnews.databinding.FragmentDetailsBinding
+import java.lang.Exception
 
 
 class DetailsFragment : Fragment() {
@@ -35,17 +36,12 @@ class DetailsFragment : Fragment() {
         _binding = FragmentDetailsBinding.inflate(layoutInflater)
 
         binding.webView.apply {
-            webViewClient = object : WebViewClient() {
-                override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
-                    super.onPageStarted(view, url, favicon)
-                    binding.pbDetails.visibility = View.VISIBLE
-
-                }
-
-
-                override fun onPageFinished(view: WebView?, url: String?) {
-                    super.onPageFinished(view, url)
-                    binding.pbDetails.visibility = View.INVISIBLE
+            webChromeClient = object : WebChromeClient() {
+                override fun onProgressChanged(view: WebView?, newProgress: Int) {
+                    _binding?.let {
+                        binding.pbDetails.isVisible = newProgress < 100 && binding.pbDetails.isInvisible
+                    }
+                    super.onProgressChanged(view, newProgress)
                 }
             }
             loadUrl(args.article.url)
