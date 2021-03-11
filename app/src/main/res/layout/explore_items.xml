@@ -80,9 +80,9 @@
 
             <ImageView
                 android:id="@+id/iv_exploreSave"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:layout_marginEnd="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
                 app:tint="@color/icons_color"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_exploreShare"
                 app:layout_constraintEnd_toEndOf="@+id/tv_exploreDesc"
@@ -91,9 +91,10 @@
 
             <ImageView
                 android:id="@+id/iv_exploreShare"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:layout_marginEnd="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:layout_marginEnd="8dp"
                 app:tint="@color/icons_color"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_exploreTime"
                 app:layout_constraintEnd_toStartOf="@+id/iv_exploreSave"

@@ -85,8 +85,9 @@
 
                 <ImageView
                     android:id="@+id/iv_savedNews_unsaved"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
                     app:layout_constraintBottom_toBottomOf="@+id/iv_savedNews_share"
                     app:layout_constraintEnd_toEndOf="@+id/tv_savedNews_desc"
                     app:layout_constraintTop_toTopOf="@+id/iv_savedNews_share"
@@ -95,9 +96,10 @@
 
                 <ImageView
                     android:id="@+id/iv_savedNews_share"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:padding="5dp"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_savedNews_time"
                     app:layout_constraintEnd_toStartOf="@+id/iv_savedNews_unsaved"
                     app:layout_constraintTop_toTopOf="@+id/tv_savedNews_time"

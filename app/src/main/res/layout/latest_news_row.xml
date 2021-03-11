@@ -75,9 +75,10 @@
 
             <ImageView
                 android:id="@+id/iv_latestNews_share"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:layout_marginEnd="8dp"
+                android:padding="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_latestNews_time"
                 app:layout_constraintEnd_toStartOf="@+id/iv_latestNews_save"
                 app:layout_constraintTop_toTopOf="@+id/tv_latestNews_time"
@@ -86,8 +87,9 @@
 
             <ImageView
                 android:id="@+id/iv_latestNews_save"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
+                android:padding="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_latestNews_share"
                 app:layout_constraintEnd_toEndOf="parent"
