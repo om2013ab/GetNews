@@ -6,7 +6,7 @@
     <data>
         <variable
             name="saveViewModel"
-            type="com.omarahmed.getnews.ui.saved.SavedViewModel" />
+            type="com.omarahmed.getnews.viewmodels.SavedViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

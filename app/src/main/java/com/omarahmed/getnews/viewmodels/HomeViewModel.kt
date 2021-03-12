@@ -1,4 +1,4 @@
-package com.omarahmed.getnews.ui.home
+package com.omarahmed.getnews.viewmodels
 
 import android.app.Application
 import android.content.Context

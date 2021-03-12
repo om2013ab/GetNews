@@ -14,7 +14,7 @@ import com.omarahmed.getnews.databinding.LatestNewsRowBinding
 import com.omarahmed.getnews.models.Article
 import com.omarahmed.getnews.shared.DataItems
 import com.omarahmed.getnews.shared.DiffCallback
-import com.omarahmed.getnews.ui.saved.SavedViewModel
+import com.omarahmed.getnews.viewmodels.SavedViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

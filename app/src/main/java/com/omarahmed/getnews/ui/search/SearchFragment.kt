@@ -1,15 +1,9 @@
 package com.omarahmed.getnews.ui.search
 
-import android.os.Build
 import android.os.Bundle
 import android.view.*
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
-import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -18,7 +12,7 @@ import com.omarahmed.getnews.R
 import com.omarahmed.getnews.databinding.FragmentSearchBinding
 import com.omarahmed.getnews.util.Constants.API_KEY
 import com.omarahmed.getnews.util.NetworkResult
-import dagger.hilt.EntryPoint
+import com.omarahmed.getnews.viewmodels.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

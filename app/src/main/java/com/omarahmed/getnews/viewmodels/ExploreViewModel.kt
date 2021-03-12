@@ -1,4 +1,4 @@
-package com.omarahmed.getnews.ui.explore
+package com.omarahmed.getnews.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.*

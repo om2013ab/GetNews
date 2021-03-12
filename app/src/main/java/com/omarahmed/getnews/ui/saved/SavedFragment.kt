@@ -6,16 +6,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
-import com.omarahmed.getnews.R
 import com.omarahmed.getnews.data.room.entities.SavedNewsEntity
 import com.omarahmed.getnews.databinding.FragmentSavedBinding
 import com.omarahmed.getnews.models.Article
+import com.omarahmed.getnews.viewmodels.SavedViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

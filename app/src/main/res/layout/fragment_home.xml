@@ -7,7 +7,7 @@
 
         <variable
             name="homeViewModel"
-            type="com.omarahmed.getnews.ui.home.HomeViewModel" />
+            type="com.omarahmed.getnews.viewmodels.HomeViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

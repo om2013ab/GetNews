@@ -1,4 +1,4 @@
-package com.omarahmed.getnews.ui.saved
+package com.omarahmed.getnews.viewmodels
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel

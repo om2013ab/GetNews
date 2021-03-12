@@ -1,24 +1,21 @@
-package com.omarahmed.getnews
+package com.omarahmed.getnews.ui.details
 
 import android.content.Intent
-import android.graphics.Bitmap
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.webkit.WebChromeClient
-import android.webkit.WebResourceRequest
 import android.webkit.WebView
-import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.navArgs
+import com.omarahmed.getnews.DetailsFragmentArgs
+import com.omarahmed.getnews.R
 import com.omarahmed.getnews.databinding.FragmentDetailsBinding
-import java.lang.Exception
 
 
 class DetailsFragment : Fragment() {
@@ -26,8 +23,12 @@ class DetailsFragment : Fragment() {
     private val binding get() = _binding!!
     private val args: DetailsFragmentArgs by navArgs()
 
-    private val fromBottom by lazy { AnimationUtils.loadAnimation(requireContext(), R.anim.from_bottom_anim) }
-    private val toBottom by lazy { AnimationUtils.loadAnimation(requireContext(), R.anim.to_bottom_anim) }
+    private val fromBottom by lazy { AnimationUtils.loadAnimation(requireContext(),
+        R.anim.from_bottom_anim
+    ) }
+    private val toBottom by lazy { AnimationUtils.loadAnimation(requireContext(),
+        R.anim.to_bottom_anim
+    ) }
 
     private var clicked = false
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

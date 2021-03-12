@@ -9,11 +9,9 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
@@ -24,10 +22,11 @@ import com.omarahmed.getnews.data.room.entities.SavedNewsEntity
 import com.omarahmed.getnews.databinding.FragmentHomeBinding
 import com.omarahmed.getnews.databinding.LatestNewsHeaderBinding
 import com.omarahmed.getnews.models.Article
-import com.omarahmed.getnews.ui.saved.SavedViewModel
+import com.omarahmed.getnews.viewmodels.SavedViewModel
 import com.omarahmed.getnews.util.Constants.API_KEY
 import com.omarahmed.getnews.util.NetworkResult
 import com.omarahmed.getnews.util.observeOnce
+import com.omarahmed.getnews.viewmodels.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Runnable
 import kotlin.math.abs
