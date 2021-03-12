@@ -4,10 +4,10 @@ import com.omarahmed.getnews.data.room.entities.ForYouNewsEntity
 import com.omarahmed.getnews.data.room.NewsDao
 import com.omarahmed.getnews.data.room.entities.LatestNewsEntity
 import com.omarahmed.getnews.data.room.entities.SavedNewsEntity
-import dagger.hilt.android.scopes.ActivityRetainedScoped
+import dagger.hilt.android.scopes.ViewModelScoped
 import javax.inject.Inject
 
-@ActivityRetainedScoped
+@ViewModelScoped
 class Repository @Inject constructor(
         private val newsApi: NewsApi,
         private val newsDao: NewsDao

@@ -2,25 +2,27 @@ package com.omarahmed.getnews.ui.home
 
 import android.app.Application
 import android.content.Context
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.omarahmed.getnews.R
 import com.omarahmed.getnews.data.Repository
 import com.omarahmed.getnews.data.room.entities.ForYouNewsEntity
 import com.omarahmed.getnews.data.room.entities.LatestNewsEntity
 import com.omarahmed.getnews.models.NewsResponse
+import com.omarahmed.getnews.shared.RemoteConnection
 import com.omarahmed.getnews.util.NetworkResult
+import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.launch
-import retrofit2.Response
 import java.lang.Exception
+import javax.inject.Inject
 
-
-class HomeViewModel @ViewModelInject constructor(
+@HiltViewModel
+class HomeViewModel @Inject constructor(
     private val repository: Repository,
-    application: Application
-) : AndroidViewModel(application) {
+    private val application: Application
+) : ViewModel() {
+
+    private val internetConnection = RemoteConnection(application)
 
     /** ROOM DATABASE*/
     val readForYouNews = repository.readForYouNews().asLiveData()
@@ -43,10 +45,10 @@ class HomeViewModel @ViewModelInject constructor(
 
     fun getForYouNews(apiKey: String) = viewModelScope.launch {
         _forYouResponse.value = NetworkResult.Loading()
-        if (hasInternetConnection()) {
+        if (internetConnection.hasInternetConnection()) {
             try {
                 val response = repository.getForYouNewsFromRemote(apiKey)
-                _forYouResponse.value = handleRemoteResponse(response)
+                _forYouResponse.value = internetConnection.handleRemoteResponse(response,"Not found")
                 // cache locally
                 val forYouNews = _forYouResponse.value?.data
                 if (forYouNews != null) {
@@ -58,16 +60,16 @@ class HomeViewModel @ViewModelInject constructor(
             }
         } else {
             _forYouResponse.value =
-                NetworkResult.Error(getApplication<Application>().getString(R.string.connection_issue_message))
+                NetworkResult.Error(application.getString(R.string.connection_issue_message))
         }
     }
 
     fun getLatestNews(apiKey: String) = viewModelScope.launch {
         _latestNewsResponse.value = NetworkResult.Loading()
-        if (hasInternetConnection()) {
+        if (internetConnection.hasInternetConnection()) {
             try {
                 val response = repository.getLatestNewsFromApi(apiKey)
-                _latestNewsResponse.value = handleRemoteResponse(response)
+                _latestNewsResponse.value = internetConnection.handleRemoteResponse(response,"Not found")
                 // cache locally
                 val latestNews = _latestNewsResponse.value?.data
                 if (latestNews != null) {
@@ -79,28 +81,7 @@ class HomeViewModel @ViewModelInject constructor(
                 _latestNewsResponse.value = NetworkResult.Error(e.message)
             }
         } else {
-            _latestNewsResponse.value = NetworkResult.Error(getApplication<Application>().getString(R.string.connection_issue_message))
-        }
-    }
-
-    private fun handleRemoteResponse(response: Response<NewsResponse>): NetworkResult<NewsResponse> {
-        return when {
-            response.code() == 500 -> NetworkResult.Error("Api error")
-            response.body()!!.articles.isNullOrEmpty() -> NetworkResult.Error("Not found")
-            response.isSuccessful -> NetworkResult.Success(response.body()!!)
-            else -> NetworkResult.Error("Something went wrong")
-        }
-    }
-    private fun hasInternetConnection(): Boolean {
-        val connectivityManager = getApplication<Application>()
-                .getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val activeNetwork = connectivityManager.activeNetwork ?: return false
-        val capabilities = connectivityManager.getNetworkCapabilities(activeNetwork) ?: return false
-        return when {
-            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
-            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
-            capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
-            else -> false
+            _latestNewsResponse.value = NetworkResult.Error(application.getString(R.string.connection_issue_message))
         }
     }
 }
