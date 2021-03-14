@@ -9,10 +9,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.omarahmed.getnews.data.room.entities.SavedNewsEntity
 import com.omarahmed.getnews.databinding.SavedNewsRowBinding
 import com.omarahmed.getnews.models.Article
+import com.omarahmed.getnews.shared.ShareClickListener
+import com.omarahmed.getnews.shared.UnsavedClickListener
 import com.omarahmed.getnews.ui.saved.SavedNewsAdapter.SavedNewsViewHolder
 
 class SavedNewsAdapter(
-        private val listener: OnClickListener
+        private val shareListener: ShareClickListener,
+        private val unsavedListener: UnsavedClickListener
 ) : androidx.recyclerview.widget.ListAdapter<SavedNewsEntity, SavedNewsViewHolder>(DiffCallback) {
     object DiffCallback : DiffUtil.ItemCallback<SavedNewsEntity>() {
         override fun areItemsTheSame(oldItem: SavedNewsEntity, newItem: SavedNewsEntity): Boolean {
@@ -26,20 +29,11 @@ class SavedNewsAdapter(
 
     inner class SavedNewsViewHolder(val binding: SavedNewsRowBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(savedNewsEntity: SavedNewsEntity) {
-            binding.savedNews = savedNewsEntity
-            binding.executePendingBindings()
-        }
-        init {
-            binding.ivSavedNewsUnsaved.setOnClickListener {
-                if (adapterPosition != RecyclerView.NO_POSITION){
-                    listener.onUnsavedClick(getItem(adapterPosition))
-                }
-            }
-            binding.ivSavedNewsShare.setOnClickListener {
-                if (adapterPosition != RecyclerView.NO_POSITION){
-                    val currentNews = getItem(adapterPosition)
-                    listener.shareNewsLink(currentNews.article)
-                }
+            binding.apply {
+                savedNews = savedNewsEntity
+                shareClickListener = shareListener
+                unsavedClickListener = unsavedListener
+                executePendingBindings()
             }
         }
     }
@@ -57,10 +51,5 @@ class SavedNewsAdapter(
             val action = SavedFragmentDirections.actionSavedFragmentToDetailsFragment(currentNews.article)
             it.findNavController().navigate(action)
         }
-    }
-
-    interface OnClickListener{
-        fun onUnsavedClick(savedNewsEntity: SavedNewsEntity)
-        fun shareNewsLink(article: Article)
     }
 }

@@ -13,7 +13,6 @@ import android.widget.Toast
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.navArgs
-import com.omarahmed.getnews.DetailsFragmentArgs
 import com.omarahmed.getnews.R
 import com.omarahmed.getnews.databinding.FragmentDetailsBinding
 

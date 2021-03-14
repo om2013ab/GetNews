@@ -22,6 +22,7 @@ import com.omarahmed.getnews.data.room.entities.SavedNewsEntity
 import com.omarahmed.getnews.databinding.FragmentHomeBinding
 import com.omarahmed.getnews.databinding.LatestNewsHeaderBinding
 import com.omarahmed.getnews.models.Article
+import com.omarahmed.getnews.shared.ShareClickListener
 import com.omarahmed.getnews.viewmodels.SavedViewModel
 import com.omarahmed.getnews.util.Constants.API_KEY
 import com.omarahmed.getnews.util.NetworkResult
@@ -36,7 +37,7 @@ class HomeFragment : Fragment(), HomeAdapter.HomeAdapterInterface {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private val viewPagerAdapter by lazy { ViewPagerAdapter() }
-    private val homeAdapter by lazy { HomeAdapter(this,requireActivity()) }
+    private lateinit var homeAdapter : HomeAdapter
     private val homeViewModel: HomeViewModel by viewModels()
     private val savedViewModel: SavedViewModel by viewModels()
     private val mHandler = Handler(Looper.myLooper()!!)
@@ -46,6 +47,9 @@ class HomeFragment : Fragment(), HomeAdapter.HomeAdapterInterface {
             savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(layoutInflater)
+        homeAdapter = HomeAdapter(this,requireActivity(), ShareClickListener{ link ->
+            shareNewsLink(link)
+        })
         getForYouNews()
         getLatestNews()
         setupRecyclerView()
@@ -173,10 +177,10 @@ class HomeFragment : Fragment(), HomeAdapter.HomeAdapterInterface {
         }
     }
 
-    override fun shareNewsLink(article: Article) {
+    private fun shareNewsLink(link: String) {
         val shareIntent = Intent().apply {
             action = Intent.ACTION_SEND
-            putExtra(Intent.EXTRA_TEXT,article.url)
+            putExtra(Intent.EXTRA_TEXT, link)
             type = "text/plain"
         }
         startActivity(shareIntent)

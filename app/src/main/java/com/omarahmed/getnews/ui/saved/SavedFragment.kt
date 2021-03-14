@@ -12,28 +12,35 @@ import com.google.android.material.snackbar.Snackbar
 import com.omarahmed.getnews.data.room.entities.SavedNewsEntity
 import com.omarahmed.getnews.databinding.FragmentSavedBinding
 import com.omarahmed.getnews.models.Article
+import com.omarahmed.getnews.shared.ShareClickListener
+import com.omarahmed.getnews.shared.UnsavedClickListener
 import com.omarahmed.getnews.viewmodels.SavedViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SavedFragment : Fragment(),SavedNewsAdapter.OnClickListener {
+class SavedFragment : Fragment() {
     private var _binding: FragmentSavedBinding? = null
     private val binding get() = _binding!!
     private val savedViewModel: SavedViewModel by viewModels()
-    private val savedNewsAdapter by lazy { SavedNewsAdapter(this) }
+    private lateinit var savedNewsAdapter: SavedNewsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSavedBinding.inflate(layoutInflater)
+        savedNewsAdapter = SavedNewsAdapter(ShareClickListener { url ->
+            shareNewsLink(url)
+        }, UnsavedClickListener { savedNewsEntity ->
+            unsavedClick(savedNewsEntity)
+        })
 
         binding.rvSavedNews.apply {
             adapter = savedNewsAdapter
-            layoutManager =  GridLayoutManager(requireContext(),2)
+            layoutManager = GridLayoutManager(requireContext(), 2)
         }
 
-        savedViewModel.readSavedNews.observe(viewLifecycleOwner){savedNews ->
+        savedViewModel.readSavedNews.observe(viewLifecycleOwner) { savedNews ->
             savedNewsAdapter.submitList(savedNews)
         }
 
@@ -43,20 +50,20 @@ class SavedFragment : Fragment(),SavedNewsAdapter.OnClickListener {
         return binding.root
     }
 
-    override fun onUnsavedClick(savedNewsEntity: SavedNewsEntity) {
+    private fun unsavedClick(savedNewsEntity: SavedNewsEntity) {
         savedViewModel.deleteSavedNews(savedNewsEntity)
-        Snackbar.make(requireView(),"Successfully deleted",Snackbar.LENGTH_SHORT).apply {
+        Snackbar.make(requireView(), "Successfully deleted", Snackbar.LENGTH_SHORT).apply {
             show()
-            setAction("UNDO"){
+            setAction("UNDO") {
                 savedViewModel.insertSavedNews(savedNewsEntity)
             }
         }
     }
 
-    override fun shareNewsLink(article: Article) {
+    private fun shareNewsLink(url: String) {
         val shareIntent = Intent().apply {
             action = Intent.ACTION_SEND
-            putExtra(Intent.EXTRA_TEXT,article.url)
+            putExtra(Intent.EXTRA_TEXT, url)
             type = "text/plain"
         }
         startActivity(shareIntent)
@@ -66,7 +73,6 @@ class SavedFragment : Fragment(),SavedNewsAdapter.OnClickListener {
         super.onDestroyView()
         _binding = null
     }
-
 
 
 }

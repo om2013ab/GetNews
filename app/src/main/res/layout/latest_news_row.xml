@@ -8,6 +8,9 @@
         <variable
             name="article"
             type="com.omarahmed.getnews.models.Article" />
+        <variable
+            name="clickListener"
+            type="com.omarahmed.getnews.shared.ShareClickListener" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -79,6 +82,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="5dp"
+                android:onClick="@{() -> clickListener.shareNewsLink(article)}"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_latestNews_time"
                 app:layout_constraintEnd_toStartOf="@+id/iv_latestNews_save"
                 app:layout_constraintTop_toTopOf="@+id/tv_latestNews_time"

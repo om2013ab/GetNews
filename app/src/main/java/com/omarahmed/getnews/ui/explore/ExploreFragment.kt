@@ -10,20 +10,19 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.omarahmed.getnews.R
-import com.omarahmed.getnews.databinding.ExploreHeaderLayoutBinding
 import com.omarahmed.getnews.databinding.FragmentExploreBinding
-import com.omarahmed.getnews.models.Article
 import com.omarahmed.getnews.models.ExploreHeaderModel
+import com.omarahmed.getnews.shared.ShareClickListener
 import com.omarahmed.getnews.util.Constants.API_KEY
 import com.omarahmed.getnews.util.NetworkResult
 import com.omarahmed.getnews.viewmodels.ExploreViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ExploreFragment : Fragment(), ExploreAdapter.ExploreAdapterInterface, HeaderAdapter.HeaderAdapterInterface {
+class ExploreFragment : Fragment(), HeaderAdapter.HeaderAdapterInterface {
     private var _binding: FragmentExploreBinding? = null
     private val binding get() = _binding!!
-    private val exploreAdapter by lazy { ExploreAdapter(this) }
+    private lateinit var exploreAdapter : ExploreAdapter
     private lateinit var headerAdapter: HeaderAdapter
     private val exploreViewModel: ExploreViewModel by viewModels()
     private lateinit var exploreHeaderModel: ArrayList<ExploreHeaderModel>
@@ -43,9 +42,23 @@ class ExploreFragment : Fragment(), ExploreAdapter.ExploreAdapterInterface, Head
                 ExploreHeaderModel(R.drawable.ic__sport,"SPORTS"),
         )
         headerAdapter = HeaderAdapter(exploreHeaderModel,this)
+        exploreAdapter = ExploreAdapter(ShareClickListener { link ->
+            shareNewsLink(link)
+        })
+
         getExploreNews("business")
         binding.rvExplore.adapter = exploreAdapter
+        binding.gvExplore.adapter = headerAdapter
         return binding.root
+    }
+
+    private fun shareNewsLink(link: String) {
+        val shareIntent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT,link)
+            type = "text/plain"
+        }
+        startActivity(shareIntent)
     }
 
     private fun getExploreNews(category: String){
@@ -59,7 +72,7 @@ class ExploreFragment : Fragment(), ExploreAdapter.ExploreAdapterInterface, Head
                         binding.ivExploreError.isVisible = false
                         binding.tvExploreError.isVisible = false
                         response.data?.let {
-                            exploreAdapter.addHeaderAndSubmitList(it.articles)
+                            exploreAdapter.submitList(it.articles)
                         }
                     }
                     is NetworkResult.Error -> {
@@ -85,24 +98,10 @@ class ExploreFragment : Fragment(), ExploreAdapter.ExploreAdapterInterface, Head
         }
 
     }
-    override fun setupHeader(headerBinding: ExploreHeaderLayoutBinding) {
-        headerBinding.gvExploreHeader.apply {
-            adapter = headerAdapter
-        }
-    }
 
     override fun getCategory(position: Int) {
         val category = exploreHeaderModel[position].title
         getExploreNews(category)
-    }
-
-    override fun shareNewsLink(article: Article) {
-        val shareIntent = Intent().apply {
-            action = Intent.ACTION_SEND
-            putExtra(Intent.EXTRA_TEXT,article.url)
-            type = "text/plain"
-        }
-        startActivity(shareIntent)
     }
 
 

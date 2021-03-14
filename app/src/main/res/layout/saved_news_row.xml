@@ -8,6 +8,12 @@
         <variable
             name="savedNews"
             type="com.omarahmed.getnews.data.room.entities.SavedNewsEntity" />
+        <variable
+            name="shareClickListener"
+            type="com.omarahmed.getnews.shared.ShareClickListener" />
+        <variable
+            name="unsavedClickListener"
+            type="com.omarahmed.getnews.shared.UnsavedClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -88,6 +94,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
+                    android:onClick="@{() -> unsavedClickListener.unSavedNews(savedNews)}"
                     app:layout_constraintBottom_toBottomOf="@+id/iv_savedNews_share"
                     app:layout_constraintEnd_toEndOf="@+id/tv_savedNews_desc"
                     app:layout_constraintTop_toTopOf="@+id/iv_savedNews_share"
@@ -100,6 +107,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="5dp"
                     android:padding="5dp"
+                    android:onClick="@{() -> shareClickListener.shareNewsLink(savedNews.article)}"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_savedNews_time"
                     app:layout_constraintEnd_toStartOf="@+id/iv_savedNews_unsaved"
                     app:layout_constraintTop_toTopOf="@+id/tv_savedNews_time"

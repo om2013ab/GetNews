@@ -12,6 +12,7 @@ import com.omarahmed.getnews.R
 import com.omarahmed.getnews.databinding.LatestNewsHeaderBinding
 import com.omarahmed.getnews.databinding.LatestNewsRowBinding
 import com.omarahmed.getnews.models.Article
+import com.omarahmed.getnews.shared.ShareClickListener
 import com.omarahmed.getnews.shared.DataItems
 import com.omarahmed.getnews.shared.DiffCallback
 import com.omarahmed.getnews.viewmodels.SavedViewModel
@@ -26,7 +27,8 @@ private const val ITEM_NEWS_TYPE = 1
 
 class HomeAdapter(
         private val listener: HomeAdapterInterface,
-        val fragment: FragmentActivity
+        val fragment: FragmentActivity,
+        val clickListener: ShareClickListener
 ) : ListAdapter<DataItems, RecyclerView.ViewHolder>(DiffCallback()) {
     private var newsSaved = false
     private var newsSavedId = 0
@@ -51,6 +53,7 @@ class HomeAdapter(
     inner class NewsViewHolder(val binding: LatestNewsRowBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(dataItem: DataItems.NewsItem) {
             binding.article = dataItem.article
+            binding.clickListener = clickListener
             binding.executePendingBindings()
         }
         init {
@@ -66,13 +69,6 @@ class HomeAdapter(
                     }
                 }
             }
-            binding.ivLatestNewsShare.setOnClickListener {
-                if (adapterPosition != RecyclerView.NO_POSITION){
-                    val currentNews = getItem(adapterPosition) as DataItems.NewsItem
-                    listener.shareNewsLink(currentNews.article)
-                }
-            }
-
         }
     }
 
@@ -131,7 +127,7 @@ class HomeAdapter(
         fun onSavedClick(article: Article, imageView: ImageView)
         fun onUnSavedClick(newsId: Int, article: Article, imageView: ImageView)
         fun setupHeader(headerBinding: LatestNewsHeaderBinding)
-        fun shareNewsLink(article: Article)
+//        fun shareNewsLink(article: Article)
     }
 }
 
