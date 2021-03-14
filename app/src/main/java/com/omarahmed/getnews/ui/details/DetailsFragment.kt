@@ -12,15 +12,21 @@ import android.webkit.WebView
 import android.widget.Toast
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.omarahmed.getnews.R
+import com.omarahmed.getnews.data.room.entities.SavedNewsEntity
 import com.omarahmed.getnews.databinding.FragmentDetailsBinding
+import com.omarahmed.getnews.viewmodels.SavedViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.lifecycle.HiltViewModel
 
-
+@AndroidEntryPoint
 class DetailsFragment : Fragment() {
     private var _binding: FragmentDetailsBinding? = null
     private val binding get() = _binding!!
     private val args: DetailsFragmentArgs by navArgs()
+    private val savedViewModel: SavedViewModel by viewModels()
 
     private val fromBottom by lazy { AnimationUtils.loadAnimation(requireContext(),
         R.anim.from_bottom_anim
@@ -53,7 +59,13 @@ class DetailsFragment : Fragment() {
         }
 
         binding.fabSave.setOnClickListener {
-            Toast.makeText(requireContext(), "save", Toast.LENGTH_SHORT).show()
+            val savedNewsEntity = SavedNewsEntity(0,args.article)
+            savedViewModel.insertSavedNews(savedNewsEntity)
+            Toast.makeText(requireContext(), "saved", Toast.LENGTH_SHORT).show()
+            binding.fabSave.setImageResource(R.drawable.ic_bookmark_saved)
+            setFabVisibility(clicked)
+            setFabAnimation(clicked)
+            clicked = !clicked
         }
         binding.fabShare.setOnClickListener {
             val shareIntent = Intent().apply {
