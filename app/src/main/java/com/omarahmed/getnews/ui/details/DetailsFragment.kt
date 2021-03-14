@@ -62,6 +62,9 @@ class DetailsFragment : Fragment() {
                 type = "text/plain"
             }
             startActivity(shareIntent)
+            setFabVisibility(clicked)
+            setFabAnimation(clicked)
+            clicked = !clicked
         }
 
         return binding.root
