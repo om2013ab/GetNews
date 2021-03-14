@@ -14,8 +14,8 @@ class Repository @Inject constructor(
 ) {
 
     /** REMOTE*/
-    suspend fun getForYouNewsFromRemote(apiKey: String) =
-            newsApi.getForYouNews(apiKey)
+    suspend fun getForYouNewsFromRemote(apiKey: String, country: String) =
+            newsApi.getForYouNews(apiKey,country)
 
     suspend fun getLatestNewsFromApi(apiKey: String) = newsApi.getLatestNews(apiKey)
     suspend fun getExploreNews(apiKey: String, category: String) = newsApi.getExploreNews(apiKey, category)

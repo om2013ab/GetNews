@@ -43,11 +43,11 @@ class HomeViewModel @Inject constructor(
         MutableLiveData()
     val latestNewsResponse: LiveData<NetworkResult<NewsResponse>> = _latestNewsResponse
 
-    fun getForYouNews(apiKey: String) = viewModelScope.launch {
+    fun getForYouNews(apiKey: String, country: String) = viewModelScope.launch {
         _forYouResponse.value = NetworkResult.Loading()
         if (internetConnection.hasInternetConnection()) {
             try {
-                val response = repository.getForYouNewsFromRemote(apiKey)
+                val response = repository.getForYouNewsFromRemote(apiKey, country)
                 _forYouResponse.value = internetConnection.handleRemoteResponse(response,"Not found")
                 // cache locally
                 val forYouNews = _forYouResponse.value?.data

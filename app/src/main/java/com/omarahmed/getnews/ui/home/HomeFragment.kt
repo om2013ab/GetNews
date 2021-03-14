@@ -1,9 +1,11 @@
 package com.omarahmed.getnews.ui.home
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.telephony.TelephonyManager
 import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
@@ -30,6 +32,7 @@ import com.omarahmed.getnews.util.observeOnce
 import com.omarahmed.getnews.viewmodels.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Runnable
+import java.util.*
 import kotlin.math.abs
 
 @AndroidEntryPoint
@@ -37,17 +40,17 @@ class HomeFragment : Fragment(), HomeAdapter.HomeAdapterInterface {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private val viewPagerAdapter by lazy { ViewPagerAdapter() }
-    private lateinit var homeAdapter : HomeAdapter
+    private lateinit var homeAdapter: HomeAdapter
     private val homeViewModel: HomeViewModel by viewModels()
     private val savedViewModel: SavedViewModel by viewModels()
     private val mHandler = Handler(Looper.myLooper()!!)
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(layoutInflater)
-        homeAdapter = HomeAdapter(this,requireActivity(), ShareClickListener{ link ->
+        homeAdapter = HomeAdapter(this, requireActivity(), ShareClickListener { link ->
             shareNewsLink(link)
         })
         getForYouNews()
@@ -95,7 +98,7 @@ class HomeFragment : Fragment(), HomeAdapter.HomeAdapterInterface {
 
     private fun readForYouNewsFromApi() {
         lifecycleScope.launchWhenStarted {
-            homeViewModel.getForYouNews(API_KEY)
+            homeViewModel.getForYouNews(API_KEY,getCountry())
             homeViewModel.forYouResponse.observe(viewLifecycleOwner) { response ->
                 when (response) {
                     is NetworkResult.Success -> {
@@ -186,6 +189,13 @@ class HomeFragment : Fragment(), HomeAdapter.HomeAdapterInterface {
         startActivity(shareIntent)
     }
 
+    private fun getCountry(): String {
+        val telephonyManager = activity?.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
+        val countryCode = telephonyManager.networkCountryIso.toUpperCase(Locale.ROOT)
+        val countryName = Locale("",countryCode).displayName
+        Log.d("countryCode",countryName)
+        return countryName
+    }
 
     override fun onSavedClick(article: Article, imageView: ImageView) {
         val savedNewsEntity = SavedNewsEntity(0, article)

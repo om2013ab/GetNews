@@ -10,8 +10,8 @@ interface NewsApi {
     @GET("/v2/top-headlines")
     suspend fun getForYouNews(
             @Query("apiKey") apiKey: String,
-            @Query("language") language: String? = "en",
-            @Query("q") country: String? = "Malaysia"
+            @Query("q") country: String? = "US",
+            @Query("language") language: String? = "en"
     ): Response<NewsResponse>
 
     @GET("/v2/top-headlines")
