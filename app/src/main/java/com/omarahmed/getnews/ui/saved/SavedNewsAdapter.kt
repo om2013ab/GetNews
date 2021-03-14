@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.omarahmed.getnews.data.room.entities.SavedNewsEntity
 import com.omarahmed.getnews.databinding.SavedNewsRowBinding
 import com.omarahmed.getnews.models.Article
+import com.omarahmed.getnews.shared.SavedDiffCallback
 import com.omarahmed.getnews.shared.ShareClickListener
 import com.omarahmed.getnews.shared.UnsavedClickListener
 import com.omarahmed.getnews.ui.saved.SavedNewsAdapter.SavedNewsViewHolder
@@ -16,16 +17,7 @@ import com.omarahmed.getnews.ui.saved.SavedNewsAdapter.SavedNewsViewHolder
 class SavedNewsAdapter(
         private val shareListener: ShareClickListener,
         private val unsavedListener: UnsavedClickListener
-) : androidx.recyclerview.widget.ListAdapter<SavedNewsEntity, SavedNewsViewHolder>(DiffCallback) {
-    object DiffCallback : DiffUtil.ItemCallback<SavedNewsEntity>() {
-        override fun areItemsTheSame(oldItem: SavedNewsEntity, newItem: SavedNewsEntity): Boolean {
-            return oldItem.id == newItem.id
-        }
-
-        override fun areContentsTheSame(oldItem: SavedNewsEntity, newItem: SavedNewsEntity): Boolean {
-            return oldItem == newItem
-        }
-    }
+) : androidx.recyclerview.widget.ListAdapter<SavedNewsEntity, SavedNewsViewHolder>(SavedDiffCallback) {
 
     inner class SavedNewsViewHolder(val binding: SavedNewsRowBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(savedNewsEntity: SavedNewsEntity) {

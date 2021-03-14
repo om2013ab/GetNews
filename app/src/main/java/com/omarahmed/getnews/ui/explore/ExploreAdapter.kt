@@ -8,21 +8,12 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.omarahmed.getnews.databinding.ExploreItemsBinding
 import com.omarahmed.getnews.models.Article
+import com.omarahmed.getnews.shared.ArticleDiffCallback
 import com.omarahmed.getnews.shared.ShareClickListener
 import com.omarahmed.getnews.ui.explore.ExploreAdapter.ExploreNewsViewHolder
 
 class ExploreAdapter(val clickListener: ShareClickListener) :
-    ListAdapter<Article, ExploreNewsViewHolder>(DiffCallback) {
-
-    object DiffCallback : DiffUtil.ItemCallback<Article>() {
-        override fun areItemsTheSame(oldItem: Article, newItem: Article): Boolean {
-            return oldItem.url == newItem.url
-        }
-
-        override fun areContentsTheSame(oldItem: Article, newItem: Article): Boolean {
-            return oldItem == newItem
-        }
-    }
+    ListAdapter<Article, ExploreNewsViewHolder>(ArticleDiffCallback) {
 
     inner class ExploreNewsViewHolder(val binding: ExploreItemsBinding) : ViewHolder(binding.root) {
         fun bindExplore(article: Article) {

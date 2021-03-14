@@ -9,19 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.omarahmed.getnews.databinding.ExploreItemsBinding
 import com.omarahmed.getnews.databinding.SearchNewsItemsBinding
 import com.omarahmed.getnews.models.Article
+import com.omarahmed.getnews.shared.ArticleDiffCallback
 import com.omarahmed.getnews.ui.search.SearchAdapter.SearchViewHolder
 
-class SearchAdapter: ListAdapter<Article, SearchViewHolder>(DiffCallback) {
-
-    object DiffCallback: DiffUtil.ItemCallback<Article>(){
-        override fun areItemsTheSame(oldItem: Article, newItem: Article): Boolean {
-            return oldItem.url == newItem.url
-        }
-
-        override fun areContentsTheSame(oldItem: Article, newItem: Article): Boolean {
-            return oldItem == newItem
-        }
-    }
+class SearchAdapter: ListAdapter<Article, SearchViewHolder>(ArticleDiffCallback) {
 
     class SearchViewHolder(val binding: SearchNewsItemsBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(article: Article){

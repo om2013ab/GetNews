@@ -14,7 +14,7 @@ import com.omarahmed.getnews.databinding.LatestNewsRowBinding
 import com.omarahmed.getnews.models.Article
 import com.omarahmed.getnews.shared.ShareClickListener
 import com.omarahmed.getnews.shared.DataItems
-import com.omarahmed.getnews.shared.DiffCallback
+import com.omarahmed.getnews.shared.DataItemsDiffCallback
 import com.omarahmed.getnews.viewmodels.SavedViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -29,7 +29,7 @@ class HomeAdapter(
         private val listener: HomeAdapterInterface,
         val fragment: FragmentActivity,
         val clickListener: ShareClickListener
-) : ListAdapter<DataItems, RecyclerView.ViewHolder>(DiffCallback()) {
+) : ListAdapter<DataItems, RecyclerView.ViewHolder>(DataItemsDiffCallback) {
     private var newsSaved = false
     private var newsSavedId = 0
     private val savedNewsViewMode = ViewModelProvider(fragment).get(SavedViewModel::class.java)
