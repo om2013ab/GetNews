@@ -11,6 +11,7 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
@@ -46,17 +47,17 @@ class HomeFragment : Fragment(), HomeAdapter.HomeAdapterInterface {
     private val mHandler = Handler(Looper.myLooper()!!)
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(layoutInflater)
         homeAdapter = HomeAdapter(this, requireActivity(), ShareClickListener { link ->
             shareNewsLink(link)
         })
-        getForYouNews()
+
         getLatestNews()
         setupRecyclerView()
-        setupRefreshLayout()
+
 
         binding.homeViewModel = homeViewModel
         binding.lifecycleOwner = this
@@ -67,7 +68,7 @@ class HomeFragment : Fragment(), HomeAdapter.HomeAdapterInterface {
         return binding.root
     }
 
-    private fun getForYouNews() {
+    private fun getForYouNews(headerBinding: LatestNewsHeaderBinding) {
         lifecycleScope.launchWhenStarted {
             homeViewModel.readForYouNews.observeOnce(viewLifecycleOwner) { database ->
                 if (database.isNotEmpty()) {
@@ -75,7 +76,7 @@ class HomeFragment : Fragment(), HomeAdapter.HomeAdapterInterface {
                     viewPagerAdapter.submitList(database[0].newsResponse.articles)
                 } else {
                     Log.d("homeFragment", "readForYouNewsFromApi!!")
-                    readForYouNewsFromApi()
+                    readForYouNewsFromApi(headerBinding)
                 }
             }
         }
@@ -96,19 +97,29 @@ class HomeFragment : Fragment(), HomeAdapter.HomeAdapterInterface {
         }
     }
 
-    private fun readForYouNewsFromApi() {
+    private fun readForYouNewsFromApi(headerBinding: LatestNewsHeaderBinding) {
         lifecycleScope.launchWhenStarted {
-            homeViewModel.getForYouNews(API_KEY,getCountry())
+            homeViewModel.getForYouNews(API_KEY, getCountry())
             homeViewModel.forYouResponse.observe(viewLifecycleOwner) { response ->
                 when (response) {
                     is NetworkResult.Success -> {
+                        headerBinding.ivForYouNotFound.isVisible = false
+                        headerBinding.tvForYouNotFound.isVisible = false
                         response.data?.let {
                             viewPagerAdapter.submitList(it.articles)
                         }
                     }
                     is NetworkResult.Error -> {
-                        readForYouNewsFromCache()
+//                        readForYouNewsFromCache()
                         Log.d("homeFragment", response.message.toString())
+                        homeViewModel.readForYouNews.observe(viewLifecycleOwner){
+                            if (response.message.toString().contains("Not found") && it.isEmpty()) {
+                                headerBinding.ivForYouNotFound.isVisible = true
+                                headerBinding.tvForYouNotFound.isVisible = true
+                                Log.d("not found", response.message.toString())
+                            }
+                        }
+
                     }
                     is NetworkResult.Loading -> Unit
                 }
@@ -173,10 +184,10 @@ class HomeFragment : Fragment(), HomeAdapter.HomeAdapterInterface {
         }
     }
 
-    private fun setupRefreshLayout() {
+    private fun setupRefreshLayout(headerBinding: LatestNewsHeaderBinding) {
         binding.refreshLayout.setOnRefreshListener {
             readLatestNewsFromApi()
-            readForYouNewsFromApi()
+            readForYouNewsFromApi(headerBinding)
         }
     }
 
@@ -192,8 +203,8 @@ class HomeFragment : Fragment(), HomeAdapter.HomeAdapterInterface {
     private fun getCountry(): String {
         val telephonyManager = activity?.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
         val countryCode = telephonyManager.networkCountryIso.toUpperCase(Locale.ROOT)
-        val countryName = Locale("",countryCode).displayName
-        Log.d("countryCode",countryName)
+        val countryName = Locale("", countryCode).displayName
+        Log.d("countryCode", countryName)
         return countryName
     }
 
@@ -245,6 +256,8 @@ class HomeFragment : Fragment(), HomeAdapter.HomeAdapterInterface {
             })
 
         }
+        getForYouNews(headerBinding)
+        setupRefreshLayout(headerBinding)
     }
 
     override fun onDestroyView() {

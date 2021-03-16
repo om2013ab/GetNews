@@ -17,4 +17,5 @@
     <string name="not_found">HUMM.. NOT FOUND</string>
     <string name="search_desc">We could not find results for your search.\nTry using another keywords.</string>
     <string name="search_hint">Search for news and articles...</string>
+    <string name="no_news_currently_available">No news currently available</string>
 </resources>
