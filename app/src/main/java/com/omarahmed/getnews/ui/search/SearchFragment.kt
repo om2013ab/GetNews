@@ -12,6 +12,7 @@ import com.omarahmed.getnews.R
 import com.omarahmed.getnews.databinding.FragmentSearchBinding
 import com.omarahmed.getnews.util.Constants.API_KEY
 import com.omarahmed.getnews.util.NetworkResult
+import com.omarahmed.getnews.util.onQueryTextSubmit
 import com.omarahmed.getnews.viewmodels.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -48,16 +49,10 @@ class SearchFragment : Fragment() {
             }
             onActionViewExpanded()
             queryHint = context.getString(R.string.search_hint)
-            setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                override fun onQueryTextSubmit(query: String?): Boolean {
-                    query?.let { searchWord ->
-                        searchNews(searchWord)
-                        searchView.clearFocus()
-                    }
-                    return true
-                }
-                override fun onQueryTextChange(newText: String?) = true
-            })
+            onQueryTextSubmit {
+                searchNews(it)
+                searchView.clearFocus()
+            }
         }
 
     }

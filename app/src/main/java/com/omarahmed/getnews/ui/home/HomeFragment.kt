@@ -68,6 +68,42 @@ class HomeFragment : Fragment(), HomeAdapter.HomeAdapterInterface {
         return binding.root
     }
 
+    override fun setupHeader(headerBinding: LatestNewsHeaderBinding) {
+        val compositePaTransformer = CompositePageTransformer()
+        compositePaTransformer.apply {
+            addTransformer(MarginPageTransformer(30))
+            addTransformer { page, position ->
+                val r = 1 - abs(position)
+                page.scaleY = 0.85f + r * 0.14f
+            }
+        }
+        headerBinding.vpForYou.apply {
+            adapter = viewPagerAdapter
+            offscreenPageLimit = 3
+            getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
+            setPageTransformer(compositePaTransformer)
+            registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+                    mHandler.removeMessages(0)
+                    val runnable = Runnable {
+                        currentItem = ++currentItem
+                    }
+                    val infinite = Runnable {
+                        currentItem = 0
+                    }
+                    mHandler.postDelayed(runnable, 5000)
+                    if (position == viewPagerAdapter.currentList.size - 1) {
+                        mHandler.removeCallbacks(runnable)
+                        mHandler.postDelayed(infinite, 5000)
+                    }
+                }
+            })
+
+        }
+        getForYouNews(headerBinding)
+        setupRefreshLayout(headerBinding)
+    }
     private fun getForYouNews(headerBinding: LatestNewsHeaderBinding) {
         lifecycleScope.launchWhenStarted {
             homeViewModel.readForYouNews.observeOnce(viewLifecycleOwner) { database ->
@@ -223,45 +259,11 @@ class HomeFragment : Fragment(), HomeAdapter.HomeAdapterInterface {
     }
 
 
-    override fun setupHeader(headerBinding: LatestNewsHeaderBinding) {
-        val compositePaTransformer = CompositePageTransformer()
-        compositePaTransformer.apply {
-            addTransformer(MarginPageTransformer(30))
-            addTransformer { page, position ->
-                val r = 1 - abs(position)
-                page.scaleY = 0.85f + r * 0.14f
-            }
-        }
-        headerBinding.vpForYou.apply {
-            adapter = viewPagerAdapter
-            offscreenPageLimit = 3
-            getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
-            setPageTransformer(compositePaTransformer)
-            registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-                override fun onPageSelected(position: Int) {
-                    super.onPageSelected(position)
-                    mHandler.removeMessages(0)
-                    val runnable = Runnable {
-                        currentItem = ++currentItem
-                    }
-                    val infinite = Runnable {
-                        currentItem = 0
-                    }
-                    mHandler.postDelayed(runnable, 5000)
-                    if (position == viewPagerAdapter.currentList.size - 1) {
-                        mHandler.removeCallbacks(runnable)
-                        mHandler.postDelayed(infinite, 5000)
-                    }
-                }
-            })
 
-        }
-        getForYouNews(headerBinding)
-        setupRefreshLayout(headerBinding)
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()
+
         _binding = null
     }
 }

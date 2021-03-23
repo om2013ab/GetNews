@@ -101,5 +101,7 @@ dependencies {
     //Jsoup
     implementation 'org.jsoup:jsoup:1.13.1'
 
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.6'
+
 
 }
